@@ -76,6 +76,8 @@ ADD THIS SHIT HERE
 
 #### Query 01
 
+##### - Description 01
+
 A marketing campaign query to find new shoppers and those who are aged under 30. This query is responsible for retrieve the shoppers:
 
 - First Name
@@ -85,6 +87,8 @@ A marketing campaign query to find new shoppers and those who are aged under 30.
 - Age in years (converted from birth date into an int)
 
 Of all shoppers who joined on or after 01-01-2020 OR those aged 29 or less on 01-01-2020. Ordered by by age (highest first) and then surname (A-Z).
+
+##### - Code Q1
 
 ``` SQL
 SELECT  shopper_first_name as Name,
@@ -97,7 +101,15 @@ WHERE date_of_birth > '1990-01-01'  OR date_joined > '2020-01-01'
 ORDER BY Age DESC, shopper_surname ASC
 ```
 
+##### - Results Q1
+
+![Query 01 Results](https://i.imgur.com/zLbL5Qj.png)
+
+##### - Evaluation Q1
+
 #### Query 02
+
+##### - Description Q2
 
 A customer account history page query which will accept the shopper id as a parameter to display corresponding information. Used to retrieve the:
 
@@ -121,6 +133,8 @@ To get all of the data stated above I needed to Inner Join the initial shoppers 
 
 Finally ordering the data by date, showing the most recent order first. And tested through using shopper ids 10000 and 10019.
 
+##### - Code Q2
+
 ``` SQL
 SELECT  shoppers.shopper_first_name as Name,
         shoppers.shopper_surname as Surname,
@@ -143,7 +157,17 @@ WHERE shoppers.shopper_id = 10000 OR shoppers.shopper_id = 10019
 ORDER BY Name, shopper_orders.order_date DESC
 ```
 
+##### - Result Q2
+
+![Query 02 Results 1](https://i.imgur.com/7colX6j.png)
+
+![Query 02 Results 2](https://i.imgur.com/rxoMbOi.png)
+
+##### - Evaluation Q2
+
 #### Query 03
+
+##### - Description Q3
 
 A query written to produce a summary report on the sellers and products that they have had sold since 01-06-2019. Displaying and retriving the:
 
@@ -162,6 +186,8 @@ Including products that a seller sells but has had no orders for AND showing any
 - shopper_orders
 
 Grouping the results by seller name and then product description.
+
+##### - Code Q3
 
 ``` SQL
 SELECT  sellers.seller_account_ref AS ACCOUNT,
@@ -182,6 +208,14 @@ WHERE shopper_orders.order_date >= '2019-06-01' OR shopper_orders.order_date IS 
 
 GROUP BY sellers.seller_name, products.product_description
 ```
+
+##### - Results Q3
+
+![Query 03 Results 1](https://i.imgur.com/sOFSA59.png)
+
+![Query 03 Results 2](https://i.imgur.com/g1fkypQ.png)
+
+##### - Evaluation Q3
 
 ---
 
