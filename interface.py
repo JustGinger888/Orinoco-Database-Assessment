@@ -8,7 +8,6 @@ cursor = db.cursor()
 
 
 # Functions
-
 ## Initial Input Of Shopper ID To Get Corresponding DB Data
 def get_shopper_id():
     # Initiate Loop
@@ -69,7 +68,6 @@ menu_options = [
 
 # Queries
 idFindQuery = 'SELECT shopper_id FROM shoppers'
-
 # Queries
 
 
