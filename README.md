@@ -6,13 +6,13 @@ Within this assessment we were given the task of creating, extending and manipul
 
 Within this report I will be discussing the theory and importance of relational databases in todays modern world, as well as assessing and evaluating my own queries that I have written.
 
-## Theory
-
 ---
 
-### 1. Key issues in the development of relational databases.
+## Theory
 
-Transaction Reliability	
+### Key issues in the development of relational databases
+
+Transaction Reliability
 Guarantees very high transaction reliability as they fully support ACID properties
 Do not guarantee very high reliability as they range from BASE to ACID properties
 
@@ -64,17 +64,27 @@ Auditing
 Relational databases provide mechanisms to audit database
 Most of the NoSQL databases do not provide mechanism for auditing the database
 
-### 2. The use of SQL functionality to create information from data
+### The use of SQL functionality to create information from data
 
-## Practical Development Work
+ADD THIS SHIT HERE
 
-The practical development work is based on an online electronics shopping company where you work as a Database Analyst/Developer. The entity-relationship diagram and SQL script for creating and populating the database are provided on SOL. 
+---
+
+## Practical
 
 ### 1. Retrieving Data using SQL
 
 #### Query 01
 
-company want to do a marketing campaign to new shoppers and those aged under 30. Retrieve the first name, surname, email address, date joined, and the age in years of all shoppers who joined on or after 1st Jan 2020 or those aged 29 or less on the 1st Jan 2020. Print date columns in the format DD-MM-YYYY. Order results by age (highest first) and then surname (A-Z).
+A marketing campaign query to find new shoppers and those who are aged under 30. This query is responsible for retrieve the shoppers:
+
+- First Name
+- Surname
+- Email Address
+- Date Joined (formatted into DD-MM-YY)
+- Age in years (converted from birth date into an int)
+
+Of all shoppers who joined on or after 01-01-2020 OR those aged 29 or less on 01-01-2020. Ordered by by age (highest first) and then surname (A-Z).
 
 ``` SQL
 SELECT  shopper_first_name as Name,
@@ -87,11 +97,29 @@ WHERE date_of_birth > '1990-01-01'  OR date_joined > '2020-01-01'
 ORDER BY Age DESC, shopper_surname ASC
 ```
 
----
-
 #### Query 02
 
-website requires a customer account history page which will accept the shopper id as a parameter. Write a query to retrieve the first name and surname for a specific shopper along with details of all the orders they’ve placed, displaying the order no, order date, product description, seller name, quantity ordered, price (right-justified with two decimal places and prefixed by a £ sign) and ordered product status. Print date columns in the format DD-MM-YYYY. Sort the results by order date showing the most recent order first. Test your query by prompting for the user to input a shopper account ref and produce results for shopper ids 10000 and 10019.
+A customer account history page query which will accept the shopper id as a parameter to display corresponding information. Used to retrieve the:
+
+- First Name
+- Surname of specified shopper
+- Order no
+- Ordered product status
+- Order Date (Formatted dd-mm-yy)
+- Product Description
+- Seller name
+- Quantity ordered
+- Price (two decimal places with a £ sign)
+- Ordered product status
+
+To get all of the data stated above I needed to Inner Join the initial shoppers table with 4 others, including:
+
+- shopper_orders Table
+- ordered_products Table
+- products Table
+- sellers Table
+
+Finally ordering the data by date, showing the most recent order first. And tested through using shopper ids 10000 and 10019.
 
 ``` SQL
 SELECT  shoppers.shopper_first_name as Name,
@@ -115,16 +143,30 @@ WHERE shoppers.shopper_id = 10000 OR shoppers.shopper_id = 10019
 ORDER BY Name, shopper_orders.order_date DESC
 ```
 
----
-
 #### Query 03
 
-business relationship manager has asked you to write a summary report on the sellers and products that they have had sold since 1st June 2019. Display the seller account ref, seller name, product code, product description, number of orders, total quantity sold and total value of all sales (right-justified with two decimal places and prefixed by a £ sign) for each product they sell. You should also include products that a seller sells but has had no orders for and show any NULL values as 0. Sort results by seller name and then product description.
+A query written to produce a summary report on the sellers and products that they have had sold since 01-06-2019. Displaying and retriving the:
+
+- Seller account ref
+- Seller Name
+- Product Code
+- Product Description
+- Number of Orders
+- Total quantity sold
+- Total value of all sales (two decimal places with a £)
+
+Including products that a seller sells but has had no orders for AND showing any NULL values as 0. Achieved by left Outer Joining the folling tables to my initial sellers table:
+
+- products
+- ordered_products
+- shopper_orders
+
+Grouping the results by seller name and then product description.
 
 ``` SQL
 SELECT  sellers.seller_account_ref AS ACCOUNT,
-        sellers.seller_name AS SellerName, 
-        products.product_id AS ProductID, 
+        sellers.seller_name AS SellerName,
+        products.product_id AS ProductID,
         products.product_description AS Desc,
         IFNULL(ordered_products.quantity, '0') AS Amount,
         PRINTF("£%7.2f",SUM(ordered_products.price*ordered_products.quantity)) AS TotalValue,
@@ -141,35 +183,75 @@ WHERE shopper_orders.order_date >= '2019-06-01' OR shopper_orders.order_date IS 
 GROUP BY sellers.seller_name, products.product_description
 ```
 
+---
+
 ### 2. Database Design, Implementation and Integrity
 
-Produce a table design to support this additional functionality explaining the process you used to arrive at your design, how you ensured the database integrity would be maintained and any design assumptions that you have made. Your design should consist of at least two new tables and you must link to at least one of the existing tables.
+#### Table Design 01
 
-| Seller Review Table     | Type          | KEY   | Description                                                |
-| ----------------------- |:-------------:|:-----:| ---------------------------------------------------------- |
-| seller_review_id        | INTEGER       | PK    | Unique Primary key to identify seller reviews              |
-| seller_id               | INTEGER       | FK    | Foreign Key To Identify the seller review is written about |
-| shopper_id              | INTEGER       | FK    | Foreign Key To Identify the shopper who wrote review       |
-| seller_review_desc      | TEXT          |       | The textual description of the seller review               |
-| seller_review_rating    | TEXT          |       | The rating given to seller strictly ranging from *-*****   |
-| seller_review_date_time | DATE          |       | The Date and time the review was made                      |
+This table takes the main elements of what would be required for any review and documents every required field into its own column of data. With the addition of the seller_id to associate every review with the corresponding seller, as well as the shopper_id to identify which user has left the review, allowing for possible follow up or personalised responses based on their review.
 
-| Product Review Table     | Type          | KEY   | Description                                                 |
-| ------------------------ |:-------------:|:-----:| ----------------------------------------------------------- |
-| product_review_id        | INTEGER       | PK    | Unique Primary key to identify product reviews              |
-| product_id               | INTEGER       | FK    | Foreign Key To Identify the product review is written about |
-| Shopper_id               | INTEGER       | FK    | Foreign Key To Identify the shopper who wrote review        |
-| product_review_desc      | TEXT          |       | The textual description of the product review               |
-| product_review_rating    | TEXT          |       | The rating given to seller strictly ranging from *-*****    |
-| product_review_date_time | DATE          |       | The Date and time the review was made                       |
+| Seller Review Table     | Type          | KEY | Description                                                |
+| ----------------------- |:-------------:|:---:| ---------------------------------------------------------- |
+| seller_review_id        | INTEGER       | PK  | Unique Primary key to identify seller reviews              |
+| seller_id               | INTEGER       | FK  | Foreign Key To Identify the seller review is written about |
+| shopper_id              | INTEGER       | FK  | Foreign Key To Identify the shopper who wrote review       |
+| seller_review_desc      | TEXT          |     | The textual description of the seller review               |
+| seller_review_rating    | TEXT          |     | The rating given to seller strictly ranging from *-*****   |
+| seller_review_date_time | DATE          |     | The Date and time the review was made                      |
 
-Modify the provided Entity Relationship diagram to show your new tables, their primary and foreign keys and how they relate to each other and to the existing tables.
+#### Table Design 02
 
-IMAGE HERE
+This table also takes the main elements of what would be required for any review and documents every required field into its own column of data. With the addition of the product_id to associate every review with the corresponding product, as well as the shopper_id to identify which user has left the review, allowing for possible follow up or personalised responses based on their review.
 
-Implement your design by creating the new tables, insert enough rows into your new tables to facilitate testing and prove that your integrity constraints work correctly through testing. Include the SQL that you used to create, populate and test the new tables in your submission
+| Product Review Table     | Type          | KEY | Description                                                 |
+| ------------------------ |:-------------:|:---:| ----------------------------------------------------------- |
+| product_review_id        | INTEGER       | PK  | Unique Primary key to identify product reviews              |
+| product_id               | INTEGER       | FK  | Foreign Key To Identify the product review is written about |
+| Shopper_id               | INTEGER       | FK  | Foreign Key To Identify the shopper who wrote review        |
+| product_review_desc      | TEXT          |     | The textual description of the product review               |
+| product_review_rating    | TEXT          |     | The rating given to seller strictly ranging from *-*****    |
+| product_review_date_time | DATE          |     | The Date and time the review was made                       |
 
-#### Seller Review Table
+#### Table Design 03
+
+The questions table would extend off of the pre existing  products table and be connected to it through the product_id foreign key as to uniquely link all questions to their products. Questions would consist only of descriptions and the date they were posted. They should all be uniquely identified ny their question ID as well. There is no shopper_id since questions are able to be asked annonomously as stated in our brief.
+
+| Questions          | Type    | KEY | Description                                                   |
+| ------------------ |:-------:|:---:| ------------------------------------------------------------- |
+| question_id        | INTEGER | PK  | Unique Primary key to identify product Questions              |
+| product_id         | INTEGER | FK  | Foreign Key To Identify the product question is written about |
+| question_desc      | TEXT    |     | The textual description of the product question               |
+| question_date_time | DATE    |     | The Date and time the question was asked                      |
+
+#### Table Design 04
+
+The answer will all be uniquely identified by the answer_id and associated to the question through the question_id foreign key. To ensure that the answers can be traced back to the shopper or seller who left the reponse, I added both the seller_id and the shopper_id as foreign keys. The question itself will again only exist of a descriptive text and date it will be posted.
+
+| Answers         | Type    | KEY | Description                                           |
+| --------------- |:-------:|:---:| ----------------------------------------------------- |
+| answer_id       | INTEGER | PK  | Unique Primary key to identify product Answers        |
+| question_id     | INTEGER | FK  | Foreign Key To Identify the corresponding question    |
+| shopper_id      | INTEGER | FK  | Foreign Key To Identify the shopper who wrote Answers |
+| seller_id       | INTEGER | FK  | Foreign Key To Identify the seller who wrote review   |
+| answer_text     | TEXT    |     | The textual description of the question answer        |
+| submission_date | DATE    |     | The Date and time the answer was posted               |
+
+---
+
+#### Electronic Relationship Diagram
+
+This modified ERD displays how the new tables would be connected and extend the current architecture, allowing for a simplified and expandable view that could immediately be implimented if needed. There are a total of 4 new tables added to the existing design and justification for each can be found abovve
+
+![ERD](https://i.imgur.com/nVw9f6y.png)
+
+---
+
+#### SQL Table Create Queries
+
+In this section I am demonstrating how I created my additional tables through create queries,afterwards insert dummy data rows into the newly creates tables to facilitate testing and prove that your integrity constraints work correctly through the testing process.
+
+##### Seller Review Table
 
 ``` SQL
 CREATE TABLE seller_review
@@ -221,7 +303,7 @@ INSERT INTO seller_review (
                           );
 ```
 
-#### Product Review Table
+##### Product Review Table
 
 ``` SQL
 CREATE TABLE product_review
@@ -273,14 +355,14 @@ INSERT INTO product_review (
                            );
 ```
 
-#### Questions Tablle
+##### Questions Table
 
 ``` SQL
 CREATE TABLE questions (
     question_id INTEGER PRIMARY KEY AUTOINCREMENT,
     product_id  INTEGER REFERENCES products(products_id),
     question_desc TEXT NOT NULL,
-    question_date_time TEXT NOT NULL,
+    question_date_time DATE NOT NULL,
     CONSTRAINT questions_fk FOREIGN KEY (product_id)
                              REFERENCES products (product_id)
 );
@@ -311,7 +393,7 @@ INSERT INTO questions (
                       );
 ```
 
-#### Answers Table
+##### Answers Table
 
 ``` SQL
 CREATE TABLE answers (
@@ -326,7 +408,7 @@ CREATE TABLE answers (
     CONSTRAINT answers_seller_fk FOREIGN KEY (seller_id)
                              REFERENCES sellers (seller_id),
     CONSTRAINT seller_review_fk FOREIGN KEY (shopper_id)
-                             REFERENCES shoppers (shopper_id)                       
+                             REFERENCES shoppers (shopper_id)
 );
 
 INSERT INTO answers (
