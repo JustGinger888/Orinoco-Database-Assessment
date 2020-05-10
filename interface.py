@@ -93,9 +93,11 @@ def menu_choice_03(shopper_id):
     else:
         print 'Error'
 
+# Option 4 Not Implimented
 def menu_choice_04():
     print('Not implemented')
 
+# Exit Program
 def menu_choice_05():
     print('Exiting\n\n')
     db.close()
@@ -110,22 +112,9 @@ shopper_id = input('Enter Valid Shopper ID: ')
 # Main Display Menu
 title = 'ORINOCO - SHOPPER MAIN MENU'
 menu_options = [
-    ['1) Display your order history',
-    ('SELECT shopper_orders.order_id, '+
-     'shopper_orders.order_date, '+ 
-     'products. product_description, '+
-     'sellers.seller_name, '+
-     'ordered_products.price, '+
-     'ordered_products.quantity, '+
-     'ordered_products.ordered_product_status as Status '+
-     'FROM shoppers '+
-     'INNER JOIN shopper_orders ON shoppers.shopper_id = shopper_orders.shopper_id '+
-     'INNER JOIN ordered_products ON shopper_orders.order_id = ordered_products.order_id '+
-     'INNER JOIN products ON ordered_products.product_id = products.product_id  '+
-     'INNER JOIN sellers ON ordered_products.seller_id = sellers.seller_id  '+
-     'WHERE shoppers.shopper_id = % s ORDER BY shopper_orders.order_date DESC'% shopper_id)],
-    ['2) Add an item to your basket','Hi'],
-    ['3) View your basket','Hi'],
+    ['1) Display your order history', queryOption01],
+    ['2) Add an item to your basket', queryOption02],
+    ['3) View your basket', queryOption03],
     ['4) Checkout','N/A'],
     ['5) Exit','N/A']]
 # Main Display Menu
@@ -133,6 +122,31 @@ menu_options = [
 
 # Queries
 idFindQuery = 'SELECT shopper_id FROM shoppers'
+queryOption01 = ('SELECT shopper_orders.order_id, '+
+                 'shopper_orders.order_date, '+ 
+                 'products. product_description, '+
+                 'sellers.seller_name, '+
+                 'ordered_products.price, '+
+                 'ordered_products.quantity, '+
+                 'ordered_products.ordered_product_status as Status '+
+                 'FROM shoppers '+
+                 'INNER JOIN shopper_orders ON shoppers.shopper_id = shopper_orders.shopper_id '+
+                 'INNER JOIN ordered_products ON shopper_orders.order_id = ordered_products.order_id '+
+                 'INNER JOIN products ON ordered_products.product_id = products.product_id  '+
+                 'INNER JOIN sellers ON ordered_products.seller_id = sellers.seller_id  '+
+                 'WHERE shoppers.shopper_id = % s ORDER BY shopper_orders.order_date DESC'% shopper_id)
+
+queryOption02 = ''
+
+queryOption03 = ('SELECT product_description, '+
+                 'sellers.seller_name, '+ 
+                 'basket_contents.quantity, '+
+                 'basket_contents.price '+
+                 'FROM shopper_baskets '+
+                 'INNER JOIN basket_contents ON shopper_baskets.basket_id = basket_contents.basket_id '+
+                 'INNER JOIN products ON basket_contents.product_id = products.product_id '+
+                 'INNER JOIN sellers ON basket_contents.seller_id = sellers.seller_id '+
+                 'WHERE shopper_baskets.shopper_id = % s'% shopper_id)
 # Queries
 
 print(get_shopper_id(shopper_id))
