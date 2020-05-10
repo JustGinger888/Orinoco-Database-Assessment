@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This assessment gave the task of creating, extending and manipulating data within a relational database to further develop an understanding of SQL and its application to real world scenarios.Within this report I will be discussing the theory and importance of relational databases in todays modern world, as well as assessing and evaluating my own queries that I have written.
+This assessment gave the task of creating, extending and manipulating data within a relational database to further develop an understanding of SQL and its application to real-world scenarios. Within this report, I will be discussing the theory and importance of relational databases in today's modern world, as well as assessing and evaluating my queries that I have written.
 
 ---
 
@@ -10,17 +10,17 @@ This assessment gave the task of creating, extending and manipulating data withi
 
 ### Key issues in the development of relational databases
 
-During extended research I did on relational databases and NoSQL databases I could identify and come to multiple conclusions both positives and negatives for each in a variety of situations. These range from their overall performance and features to the useability cases and various environments, and have been documented below
+During extended research, I did on relational databases and NoSQL databases I could identify and come to multiple conclusions both positives and negatives for each in a variety of situations. These range from their overall performance and features to the useability cases and various environments, and have been documented below
 
-Firstly, for the performance aspect in both these differant databases types it is evident that for a relational database, in order for caching to be done, requires special support infrastructure in cmparison to NoSQL systems where performance itself is enhanced through caching data into system memory. This means that the performance for a relational database, while much more structured is much more resource heavy and requires a well designed structure to be truly efficient. This performance aspect could be directly influenced by the indexing and structuring of the data as relational databases use multiple column and rows instead of the single index, key-value storage solution of NoSQL databases.
+Firstly, for the performance aspect in both these different databases types, it is evident that for a relational database, for caching to be done, requires special support infrastructure in comparison to NoSQL systems where the performance itself is enhanced through caching data into system memory. This means that the performance for a relational database, while much more structured is much more resource heavy and requires a well-designed structure to be truly efficient. This performance aspect could be directly influenced by the indexing and structuring of the data as relational databases use multiple columns and rows instead of the single index, key-value storage solution of NoSQL databases.
 
-Moreover, while considering the possible environment in which these databases could be used, there was quite a large emphasis on their use in modern cloud architecture. Relational databeses are, according to most sources, not suitable for the cloudas as they don't 'support data search on full content' and seem to be hard to extend beyond a set limit. Where NoSQL databases have characteristics that are highly desirable for the cloud environment. This is all based on the popularity and handling of Big Data in todays modern age, as relational databases just are not designed for the volume, variety or veelocity of Big Data.
+Moreover, while considering the possible environment in which these databases could be used, there was quite a large emphasis on their use in modern cloud architecture. Relational databases are, according to most sources, not suitable for the cloud as they don't 'support data search on full-content' and seem to be hard to extend beyond a set limit. Where NoSQL databases have characteristics that are highly desirable for the cloud environment. This is all based on the popularity and handling of Big Data in today's modern age, as relational databases just are not designed for the volume, variety or velocity of Big Data.
 
-As for the data modelling of these systems, relational databases tend to be quite specific and well organized, as previously mentioned, columns and rows represent the well-defined schema. This does present an issue when considering scalability, due to the empasised dependency on vertical scalability as oppose to NoSQL databases that depend on horizontal scalability. The NoSQL data model also provides a schemaless and efficient in handling unstructured data as well.
+As for the data modelling of these systems, relational databases tend to be quite specific and well organized, as previously mentioned, columns and rows represent the well-defined schema. This does present an issue when considering scalability, due to the emphasised dependency on vertical scalability as oppose to NoSQL databases that depend on horizontal scalability. The NoSQL data model also provides a schemaless and efficient in handling unstructured data as well.
 
-A few other positive features of relational databases that were mentioned includes their almost guaranteed crash recovery through recovery manager, the built in authentication mechanism and their assurance of data integrity. All of which would make it an ideal fit for most companies of today, providing a stable backbone to their systems.
+A few other positive features of relational databases that were mentioned include their almost guaranteed crash recovery through recovery manager, the built-in authentication mechanism and their assurance of data integrity. All of which would make it an ideal fit for most companies of today, providing a stable backbone to their systems.
 
-Finally, during my research and practical development I have found that using sql can provide the functionality to create information from data. This means that SQL queries can be used to take and combine multiple pieces of data for most operations, giving meaning and purpose to this data.
+Finally, during my research and practical development, I have found that using SQL can provide the functionality to create information from data. This means that SQL queries can be used to take and combine multiple pieces of data for most operations, giving meaning and purpose to this data.
 
 ## Practical
 
@@ -36,9 +36,9 @@ A marketing campaign query to find new shoppers and those who are aged under 30.
 - Surname
 - Email Address
 - Date Joined (formatted into DD-MM-YY)
-- Age in years (converted from birth date into an int)
+- Age in years (converted from a birth date into an int)
 
-Of all shoppers who joined on or after 01-01-2020 OR those aged 29 or less on 01-01-2020. Ordered by by age (highest first) and then surname (A-Z).
+Of all shoppers who joined on or after 01-01-2020 OR those aged 29 or lesson 01-01-2020. Ordered by my age (highest first) and then surname (A-Z).
 
 ##### - Code Q1
 
@@ -59,26 +59,26 @@ ORDER BY Age DESC, shopper_surname ASC
 
 ##### - Evaluation Q1
 
-The resulting data of this query seems to be all as required and correct due to the testing I have done and propper formatting of age and date. One of the tests that I have done includes running the query withouth the name condition when ordering, seeing the resulting data would not alphabetically sort data, specifically on entry 7 and 8, which was rectified through the second condition. Moreover, I also ran my own calculations on a few ages and they all seem to be correct. Seperating the where clause also allowed me to see tha amount of new clients and those based on age in seperate views, giving me the chance to count seperately and add them together when joining the clauses, allowing me ensure the data returned was all of them needed.
+The resulting data of this query seems to be all as required and correct due to the testing I have done and propper formatting of age and date. One of the tests that I have done includes running the query without the name condition when ordering, seeing the resulting data would not alphabetically sort data, specifically on entry 7 and 8, which was rectified through the second condition. Moreover, I also ran my calculations on a few pages and they all seem to be correct. Separating the where clause also allowed me to see that amount of new clients and those based on age in separate views, giving me the chance to count separately and add them together when joining the clauses, allowing me to ensure the data returned was all of them needed.
 
 #### Query 02
 
 ##### - Description Q2
 
-A customer account history page query which will accept the shopper id as a parameter to display corresponding information. Used to retrieve the:
+A customer account history page query which will accept the shopper id as a parameter to display the corresponding information. Used to retrieve the:
 
 - First Name
-- Surname of specified shopper
+- A surname of specified shopper
 - Order no
 - Ordered product status
 - Order Date (Formatted dd-mm-yy)
 - Product Description
-- Seller name
+- Seller Name
 - Quantity ordered
 - Price (two decimal places with a £ sign)
 - Ordered product status
 
-To get all of the data stated above I needed to Inner Join the initial shoppers table with 4 others, including:
+To get all of the data stated above I needed to Inner Join the initial shoppers' table with 4 others, including:
 
 - shopper_orders Table
 - ordered_products Table
@@ -119,13 +119,13 @@ ORDER BY Name, shopper_orders.order_date DESC
 
 ##### - Evaluation Q2
 
-This query had to be done by joining multiple tables with one another but can all be deemed successful due to all the data being displayed without issue. I tested this more thoroughly by discussing my resaults with fellow peers since it was the easiest solution at my disposal. The fromatting of everything also seems to be as required iin these queries.
+This query had to be done by joining multiple tables with one another but can all be deemed successful due to all the data being displayed without issue. I tested this more thoroughly by discussing my results with fellow peers since it was the easiest solution at my disposal. The formatting of everything also seems to be as required in these queries.
 
 #### Query 03
 
 ##### - Description Q3
 
-A query written to produce a summary report on the sellers and products that they have had sold since 01-06-2019. Displaying and retriving the:
+A query is written to produce a summary report on the sellers and products that they have had sold since 01-06-2019. Displaying and retrieving the:
 
 - Seller account ref
 - Seller Name
@@ -133,9 +133,9 @@ A query written to produce a summary report on the sellers and products that the
 - Product Description
 - Number of Orders
 - Total quantity sold
-- Total value of all sales (two decimal places with a £)
+- The total value of all sales (two decimal places with a £)
 
-Including products that a seller sells but has had no orders for AND showing any NULL values as 0. Achieved by left Outer Joining the folling tables to my initial sellers table:
+Including products that a seller sells but has had no orders for AND showing any NULL values as 0. Achieved by left Outer Joining the following tables to my initial sellers' table:
 
 - products
 - ordered_products
@@ -173,7 +173,7 @@ GROUP BY sellers.seller_name, products.product_description
 
 ##### - Evaluation Q3
 
-Simillar to the two above queries, I made sure that these results were accurate through using methods I explored above, specifically the seperation of the where clayses and group by condition. Moreover I discussed tha amount of results gotten and compared them with my fellow peers to ensure  validity thereof.
+Similar to the two above queries, I made sure that these results were accurate through using methods I explored above, specifically, the separation of the where clauses and group by the condition. Moreover, I discussed the amount of results gotten and compared them with my fellow peers to ensure validity thereof.
 
 ---
 
@@ -181,7 +181,7 @@ Simillar to the two above queries, I made sure that these results were accurate 
 
 #### Table Design 01
 
-This table takes the main elements of what would be required for any review and documents every required field into its own column of data. With the addition of the seller_id to associate every review with the corresponding seller, as well as the shopper_id to identify which user has left the review, allowing for possible follow up or personalised responses based on their review.
+This table takes the main elements of what would be required for any review and documents every required field into its column of data. With the addition of the seller_id to associate every review with the corresponding seller, as well as the shopper_id to identify which user has left the review, allowing for possible follow up or personalised responses based on their review.
 
 | Seller Review Table     | Type          | KEY | Description                                                |
 | ----------------------- |:-------------:|:---:| ---------------------------------------------------------- |
@@ -194,7 +194,7 @@ This table takes the main elements of what would be required for any review and 
 
 #### Table Design 02
 
-This table also takes the main elements of what would be required for any review and documents every required field into its own column of data. With the addition of the product_id to associate every review with the corresponding product, as well as the shopper_id to identify which user has left the review, allowing for possible follow up or personalised responses based on their review.
+This table also takes the main elements of what would be required for any review and documents every required field into its column of data. With the addition of the product_id to associate every review with the corresponding product, as well as the shopper_id to identify which user has left the review, allowing for possible follow up or personalised responses based on their review.
 
 | Product Review Table     | Type          | KEY | Description                                                 |
 | ------------------------ |:-------------:|:---:| ----------------------------------------------------------- |
@@ -207,7 +207,7 @@ This table also takes the main elements of what would be required for any review
 
 #### Table Design 03
 
-The questions table would extend off of the pre existing  products table and be connected to it through the product_id foreign key as to uniquely link all questions to their products. Questions would consist only of descriptions and the date they were posted. They should all be uniquely identified ny their question ID as well. There is no shopper_id since questions are able to be asked annonomously as stated in our brief.
+The questions table would extend off of the pre-existing  products table and be connected to it through the product_id foreign key as to uniquely link all questions to their products. Questions would consist only of descriptions and the date they were posted. They should all be uniquely identified by their question ID as well. There is no shopper_id since questions can be asked anonymously as stated in our brief.
 
 | Questions          | Type    | KEY | Description                                                   |
 | ------------------ |:-------:|:---:| ------------------------------------------------------------- |
@@ -218,7 +218,7 @@ The questions table would extend off of the pre existing  products table and be 
 
 #### Table Design 04
 
-The answer will all be uniquely identified by the answer_id and associated to the question through the question_id foreign key. To ensure that the answers can be traced back to the shopper or seller who left the reponse, I added both the seller_id and the shopper_id as foreign keys. The question itself will again only exist of a descriptive text and date it will be posted.
+The answer will all be uniquely identified by the answer_id and associated to the question through the question_id foreign key. To ensure that the answers can be traced back to the shopper or seller who left the response, I added both the seller_id and the shopper_id as foreign keys. The question itself will again only exist of a descriptive text and date it will be posted.
 
 | Answers         | Type    | KEY | Description                                           |
 | --------------- |:-------:|:---:| ----------------------------------------------------- |
@@ -226,14 +226,14 @@ The answer will all be uniquely identified by the answer_id and associated to th
 | question_id     | INTEGER | FK  | Foreign Key To Identify the corresponding question    |
 | shopper_id      | INTEGER | FK  | Foreign Key To Identify the shopper who wrote Answers |
 | seller_id       | INTEGER | FK  | Foreign Key To Identify the seller who wrote review   |
-| answer_text     | TEXT    |     | The textual description of the question answer        |
+| answer_text     | TEXT    |     | The textual description of the question-answer        |
 | submission_date | DATE    |     | The Date and time the answer was posted               |
 
 ---
 
 #### Electronic Relationship Diagram
 
-This modified ERD displays how the new tables would be connected and extend the current architecture, allowing for a simplified and expandable view that could immediately be implimented if needed. There are a total of 4 new tables added to the existing design and justification for each can be found abovve
+This modified ERD displays how the new tables would be connected and extend the current architecture, allowing for a simplified and expandable view that could immediately be implemented if needed. There are a total of 4 new tables added to the existing design and justification for each can be found above
 
 ![ERD](https://i.imgur.com/nVw9f6y.png)
 
@@ -241,7 +241,7 @@ This modified ERD displays how the new tables would be connected and extend the 
 
 #### SQL Table Create Queries
 
-In this section I am demonstrating how I created my additional tables through create queries,afterwards insert dummy data rows into the newly creates tables to facilitate testing and prove that your integrity constraints work correctly through the testing process.
+In this section, I am demonstrating how I created my additional tables through create queries, afterwards insert dummy data rows into the newly creates tables to facilitate testing and prove that your integrity constraints work correctly through the testing process.
 
 ##### Seller Review Table
 
