@@ -78,12 +78,23 @@ def menu_choice_02(shopper_id):
     category = get_productCatagories()
     
     queryOption02_02 = ('SELECT products.product_description '+
-                    'FROM products '+
-                    'INNER JOIN categories ON products.category_id = categories.category_id '+
-                    "WHERE categories.category_description IN ('% s')"% category)
+                        'FROM products '+
+                        'INNER JOIN categories ON products.category_id = categories.category_id '+
+                        "WHERE categories.category_description IN ('% s')"% category)
     product = get_products(queryOption02_02)
-    print product
+    
+    queryOption02_03 = ('SELECT sellers.seller_name, product_sellers.price ' +
+                        'FROM product_sellers '+
+                        'INNER JOIN products ON product_sellers.product_id = products.product_id '
+                        'INNER JOIN sellers ON product_sellers.seller_id = sellers.seller_id '+
+                        "WHERE products.product_description IN ('% s') ORDER BY seller_name"% product)
+    seller = get_sellers(queryOption02_03)
+    
+    quantity = input('Enter quantity youd like to buy: ')
+    
+    print seller
         
+#Option 2 Displays
 def get_productCatagories():
     #Excecuting query
     cursor.execute(menu_options[1][1])
@@ -140,6 +151,34 @@ def get_products(query):
     # -1 to give catagory from starting point 0
     return myResult[categories - 1][0].encode("utf-8")
 
+def get_sellers(query):
+    #Excecuting query
+    cursor.execute(query)
+    myResult = cursor.fetchall()
+    
+    if not myResult:
+        print ('Error')
+        print('\n\n')
+    else:
+        #Paramaters For Loop
+        loop = True
+        count = 0
+        while loop:
+            #Display Menu
+            for x in myResult:
+                count+=1
+                print(str(count) +') ' + x[0].encode("utf-8"))
+            categories = input('Enter the Number against the product category you want to choose: ')
+            print('\n\n')
+            #InValid Input
+            if categories <= 0 or categories > 6:
+                loop = True
+            #Valid Input
+            else:
+                loop = False
+    # -1 to give catagory from starting point 0
+    return myResult[categories - 1]
+
 def get_productSellers():
     #Excecuting query
     cursor.execute(menu_options[1][1])
@@ -167,6 +206,7 @@ def get_productSellers():
                 loop = False
     # -1 to give catagory from starting point 0
     return myResult[categories - 1][0].encode("utf-8")
+#Option 2 Displays
 
 def menu_choice_03(shopper_id):
     #Get SQL Query for option 3
@@ -195,8 +235,8 @@ def menu_choice_05():
 
 #Prompting Input Of Shoope ID
 shopper_id = input('Enter Valid Shopper ID: ')
-
 category = ''
+
 
 # Queries
 idFindQuery = 'SELECT shopper_id FROM shoppers'
