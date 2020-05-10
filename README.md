@@ -2,9 +2,7 @@
 
 ## Introduction
 
-Within this assessment we were given the task of creating, extending and manipulating data within a relational database to further develop an understanding of SQL and its application to real world scenarios.
-
-Within this report I will be discussing the theory and importance of relational databases in todays modern world, as well as assessing and evaluating my own queries that I have written.
+This assessment gave the task of creating, extending and manipulating data within a relational database to further develop an understanding of SQL and its application to real world scenarios.Within this report I will be discussing the theory and importance of relational databases in todays modern world, as well as assessing and evaluating my own queries that I have written.
 
 ---
 
@@ -12,63 +10,17 @@ Within this report I will be discussing the theory and importance of relational 
 
 ### Key issues in the development of relational databases
 
-Transaction Reliability
-Guarantees very high transaction reliability as they fully support ACID properties
-Do not guarantee very high reliability as they range from BASE to ACID properties
+During extended research I did on relational databases and NoSQL databases I could identify and come to multiple conclusions both positives and negatives for each in a variety of situations. These range from their overall performance and features to the useability cases and various environments, and have been documented below
 
-Performance
-Caching has to be done with special infrastructure support
-Performance is enhanced by caching data into system memory
+Firstly, for the performance aspect in both these differant databases types it is evident that for a relational database, in order for caching to be done, requires special support infrastructure in cmparison to NoSQL systems where performance itself is enhanced through caching data into system memory. This means that the performance for a relational database, while much more structured is much more resource heavy and requires a well designed structure to be truly efficient. This performance aspect could be directly influenced by the indexing and structuring of the data as relational databases use multiple column and rows instead of the single index, key-value storage solution of NoSQL databases.
 
-Indexing
-Index available on multiple column
-Single index, key-value store
+Moreover, while considering the possible environment in which these databases could be used, there was quite a large emphasis on their use in modern cloud architecture. Relational databeses are, according to most sources, not suitable for the cloudas as they don't 'support data search on full content' and seem to be hard to extend beyond a set limit. Where NoSQL databases have characteristics that are highly desirable for the cloud environment. This is all based on the popularity and handling of Big Data in todays modern age, as relational databases just are not designed for the volume, variety or veelocity of Big Data.
 
-Data Model
-Data model is very specific and well organized. Columns and rows are described by well-defined schema
-Data model does not use the table as storage structure and is schema less. Data model is very efficient in handling unstructured data as well
+As for the data modelling of these systems, relational databases tend to be quite specific and well organized, as previously mentioned, columns and rows represent the well-defined schema. This does present an issue when considering scalability, due to the empasised dependency on vertical scalability as oppose to NoSQL databases that depend on horizontal scalability. The NoSQL data model also provides a schemaless and efficient in handling unstructured data as well.
 
-Scalability
-Scalability is greatest challenge in relational databases due to the dependency on vertical scalability
-NoSQL databases depend on horizontal scalability
+A few other positive features of relational databases that were mentioned includes their almost guaranteed crash recovery through recovery manager, the built in authentication mechanism and their assurance of data integrity. All of which would make it an ideal fit for most companies of today, providing a stable backbone to their systems.
 
-Cloud
-Not suitable for cloud environment as these databases do not support data search on full content. Relational databases are also very hard to extend beyond a limit
-Well suited for cloud databases. All characteristics of NoSQL databases [10] are highly desirable for cloud databases
-
-Handling Big Data
-Big Data handling is a challenging issue for relational databases
-NoSQL databases are designed to handle Big Data
-
-Data Warehouse
-When the size of stored data increases, problems related to performance degradation raises
-NoSQL databases are not designed to serve data warehouse. NoSQL databases are faster than data warehouse
-
-Complexity
-Complexity arises due to nonfixture of data into tables
-NoSQL databases have the capabilities to store unstructured data
-Crash Recovery
-They guarantee crash recovery through recovery manager
-NoSQL databases use replication method as backup to recuperate from crash
-Authentication
-Relational databases come with authentication mechanism
-NoSQL database does not have strong authentication mechanism and are dependent on external method for this
-
-Data Integrity
-Relational databases ensure data integrity
-A NoSQL database does not support data integrity at every occasion
-Confidentiality
-Data confidentiality is a well-known feature of relational database
-Generally data confidentiality is not achieved in NoSQL databases
-Auditing
-Relational databases provide mechanisms to audit database
-Most of the NoSQL databases do not provide mechanism for auditing the database
-
-### The use of SQL functionality to create information from data
-
-ADD THIS SHIT HERE
-
----
+Finally, during my research and practical development I have found that using sql can provide the functionality to create information from data. This means that SQL queries can be used to take and combine multiple pieces of data for most operations, giving meaning and purpose to this data.
 
 ## Practical
 
@@ -106,6 +58,8 @@ ORDER BY Age DESC, shopper_surname ASC
 ![Query 01 Results](https://i.imgur.com/zLbL5Qj.png)
 
 ##### - Evaluation Q1
+
+The resulting data of this query seems to be all as required and correct due to the testing I have done and propper formatting of age and date. One of the tests that I have done includes running the query withouth the name condition when ordering, seeing the resulting data would not alphabetically sort data, specifically on entry 7 and 8, which was rectified through the second condition. Moreover, I also ran my own calculations on a few ages and they all seem to be correct. Seperating the where clause also allowed me to see tha amount of new clients and those based on age in seperate views, giving me the chance to count seperately and add them together when joining the clauses, allowing me ensure the data returned was all of them needed.
 
 #### Query 02
 
@@ -165,6 +119,8 @@ ORDER BY Name, shopper_orders.order_date DESC
 
 ##### - Evaluation Q2
 
+This query had to be done by joining multiple tables with one another but can all be deemed successful due to all the data being displayed without issue. I tested this more thoroughly by discussing my resaults with fellow peers since it was the easiest solution at my disposal. The fromatting of everything also seems to be as required iin these queries.
+
 #### Query 03
 
 ##### - Description Q3
@@ -216,6 +172,8 @@ GROUP BY sellers.seller_name, products.product_description
 ![Query 03 Results 2](https://i.imgur.com/g1fkypQ.png)
 
 ##### - Evaluation Q3
+
+Simillar to the two above queries, I made sure that these results were accurate through using methods I explored above, specifically the seperation of the where clayses and group by condition. Moreover I discussed tha amount of results gotten and compared them with my fellow peers to ensure  validity thereof.
 
 ---
 
@@ -286,6 +244,8 @@ This modified ERD displays how the new tables would be connected and extend the 
 In this section I am demonstrating how I created my additional tables through create queries,afterwards insert dummy data rows into the newly creates tables to facilitate testing and prove that your integrity constraints work correctly through the testing process.
 
 ##### Seller Review Table
+
+###### - Code
 
 ``` SQL
 CREATE TABLE seller_review
