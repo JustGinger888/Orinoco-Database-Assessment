@@ -64,13 +64,14 @@ def menu_choice_01(shopper_id):
     #Get SQL Query for option 1
     cursor.execute(menu_options[0][1])
     myResult = cursor.fetchall()
-
+    count = 0
     if not myResult:
         print 'No orders placed by this customer'
         print('\n\n')
     else:
         for x in myResult:
-            print(x)
+            count+=1 
+            print(str(count) +') ' + str(x[0]) +'  '+ x[1].encode("utf-8")+'  ' + x[2].encode("utf-8") +'  '+ x[3].encode("utf-8") +'  '+ str(x[4]) +'  '+ str(x[5]) +'  '+ x[6].encode("utf-8"))
         print('\n\n')
         
 def menu_choice_02(shopper_id):

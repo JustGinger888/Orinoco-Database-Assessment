@@ -1,4 +1,6 @@
-# Orinoco Database Assessment
+# [Orinoco Database Assessment](https://github.com/JustGinger888/Orinoco-Database-Assessment)
+
+Repo: [https://github.com/JustGinger888/Orinoco-Database-Assessment](https://github.com/JustGinger888/Orinoco-Database-Assessment)
 
 ## Introduction
 
@@ -475,6 +477,10 @@ INSERT INTO answers (
 
 ### 3. Programming for Databases
 
+#### My Approach
+
+While relatively unfamiliar with python, i have attempted to impliment an Object oriented programming apprach into the development of the database interface as best I could, sepeating all major aspects of the program into sections. These sections range from options per initial menu selection to a function to display the entire menu with its relevant choices. I will be discussing all major aspects of this program according to the brief and evaluate my choices below. I have also made use of a VS code extension that allows for the better spacing of python code.
+
 ``` python
 import sqlite3
 
@@ -503,7 +509,13 @@ def get_shopper_id(shopper_id):
             print('Cannot find shopper ID, proceeding to exit...')
             shopper_id_found = False
     return ''
+```
 
+This initial function is used to authenticate the user and make sure that they will actually have records to display when queries are ran throughout the program. This works by requesting all shopper_ids in the shopper table, and then searching for the inputted value within the list that was returned.
+
+![get_shopper_id Results](https://i.imgur.com/HLdlyg0.png)
+
+``` python
 ## Gets, Displays and Compares the Menu Choices
 def get_menu_choice(shopper_id):
     loop = True
@@ -527,7 +539,13 @@ def get_menu_choice(shopper_id):
         else:
             menu_choice_05()
     return ''
+```
 
+This function displaays and controls the logic of the main menu after initial authentication of the users requested shopper_id. Whnever a valid input is given it will take user to another function that is associated with the choice, giving the shopper_id s a paramater as it is needed throughout the program to function properly.
+
+![get_menu_choice Results](https://i.imgur.com/PicDIO8.png)
+
+``` python
 ## Displays Title And Layout Of Choices
 def get_menu_items(menu, title):
     print(title)
@@ -535,18 +553,32 @@ def get_menu_items(menu, title):
     for option in menu_options:
         print option[0]
 #Menu Choices
+```
+
+While short by design, this function simply outputs the menus based on a given list of data. Making it an efficient solution for all my display needs. It is used for the initial menu and the multiple Option 2 menus as needed.
+
+``` python
 def menu_choice_01(shopper_id):
     #Get SQL Query for option 1
     cursor.execute(menu_options[0][1])
     myResult = cursor.fetchall()
-
+    count = 0
     if not myResult:
         print 'No orders placed by this customer'
         print('\n\n')
     else:
         for x in myResult:
-            print(x)
+            count+=1 
+            print(str(count) +') ' + str(x[0]) +'  '+ x[1].encode("utf-8")+'  ' + x[2].encode("utf-8")
+            +'  '+ x[3].encode("utf-8") +'  '+ str(x[4]) +'  '+ str(x[5]) +'  '+ x[6].encode("utf-8"))
         print('\n\n')
+```
+
+The first options relevant query would be used to display the data from the the selected table and succesfully does so when compared to the given results in the assessment brief. Moreover, it qets this query from the list in which the options are defined as I put them there to make it better ordered, due to them being directly associated with one another.
+
+![menu_choice_01 Results](https://i.imgur.com/qOssjZe.png)
+
+``` python
 def menu_choice_02(shopper_id):
     #Get SQL Query for option 2
     category = get_productCatagories()
@@ -563,6 +595,11 @@ def menu_choice_02(shopper_id):
     seller = get_sellers(queryOption02_03)
     quantity = input('Enter quantity youd like to buy: ')
     print seller
+```
+
+The second menu choice which is seperated into 3 main parts to display and 3 menu choices, storing the data from each decision into their own variable used for extension to add to the basket, unfortunately I could not succesfully impliment the basket adding option, but could confirm the results were accurate thank to print statements. Below you can see the individual menu statements that display the relevant query details and their results.
+
+``` python
 #Option 2 Displays
 def get_productCatagories():
     #Excecuting query
@@ -672,7 +709,11 @@ def get_productSellers():
     # -1 to give catagory from starting point 0
     return myResult[categories - 1][0].encode("utf-8")
 #Option 2 Displays
+```
 
+![menu_option_02 Results](https://i.imgur.com/GGj5zKK.png)
+
+``` python
 def menu_choice_03(shopper_id):
     #Get SQL Query for option 3
     cursor.execute(menu_options[2][1])
@@ -685,7 +726,13 @@ def menu_choice_03(shopper_id):
         for x in myResult:
             print(x)
         print('\n\n')
+```
 
+The third menu choice is simpler than the previous 2 options as it only takes a single modified query to display the basket contents accordingly.
+
+![menu_choice_03 Results](https://i.imgur.com/RH918XB.png)
+
+``` python
 # Option 4 Not Implimented
 def menu_choice_04():
     print('Not implemented\n\n')
@@ -696,17 +743,25 @@ def menu_choice_05():
     db.close()
 #MenuChoices
 # Functions
+```
 
+Option 4 has not been implimented and option 5 simply just exits out of my program accordingly.
 
+![menu_option_05 Res](https://i.imgur.com/pfmc7lI.png)
+
+``` python
 #Prompting Input Of Shoope ID
 shopper_id = input('Enter Valid Shopper ID: ')
 category = ''
+```
 
+This input is where the shopper id is retrived and used for authentication and specific data gathering and addition into the db.
 
+``` python
 # Queries
 idFindQuery = 'SELECT shopper_id FROM shoppers'
 queryOption01 = ('SELECT shopper_orders.order_id, '+
-                 'shopper_orders.order_date, '+ 
+                 'shopper_orders.order_date, '+
                  'products. product_description, '+
                  'sellers.seller_name, '+
                  'ordered_products.price, '+
@@ -722,7 +777,7 @@ queryOption01 = ('SELECT shopper_orders.order_id, '+
 queryOption02_01 = ('SELECT category_description FROM categories ORDER BY category_description')
 
 queryOption03 = ('SELECT product_description, '+
-                 'sellers.seller_name, '+ 
+                 'sellers.seller_name, '+
                  'basket_contents.quantity, '+
                  'basket_contents.price '+
                  'FROM shopper_baskets '+
@@ -731,8 +786,11 @@ queryOption03 = ('SELECT product_description, '+
                  'INNER JOIN sellers ON basket_contents.seller_id = sellers.seller_id '+
                  'WHERE shopper_baskets.shopper_id = % s'% shopper_id)
 # Queries
+```
 
+The three queries above are a combination of modified and new queries while acting as the initial queries to every menu option. They were all confirmed to be working through creating them in the SQLite studio, and comparing the results to those found in the brief with id 10010. This means that it was all functional and working perfectily according to the wanted results.
 
+``` python
 # Main Display Menu
 title = 'ORINOCO - SHOPPER MAIN MENU'
 menu_options = [
@@ -742,7 +800,36 @@ menu_options = [
     ['4) Checkout','N/A'],
     ['5) Exit','N/A']]
 # Main Display Menu
+```
 
+The initial menu options have been defined in a 2D list, allowing the display data and initial queries to be combined. Ensuring that they will always be a pair when being displayed. The pair would also allow for easier future development.
 
+``` python
 print(get_shopper_id(shopper_id))
 ```
+
+### 4. Evaluation
+
+#### An evaluation of the quality of the work
+
+I completed most of the assignment other than the 4th extension question on each part, though believe that I have made up for it through my evalution of my queries and the added research done on databases, both sql and nosql.
+
+#### Approach to design and testing and what more I would have done if I’d had more time
+
+##### SQL
+
+For the sql i just attempted to abstract the required points to their required parts and then write sufficient queries to produce the needed results. Using testing methods which have been discussed above to ensure it all produces accurate results.
+
+##### Python
+
+For my python code I took an object oriented approach and devided my program into needed parts that form a whole. Testing mostly through comparing results to those in the brief. I have thoroughly discussed all essential parts of my code above.
+
+#### What you had changed from pre-submitted versions
+
+I was unable to change anytjing on my document as, due to some complicating factors out of my control, I was late with my pre-submission and could not gain feedback.
+
+#### Referances
+
+[https://www.ibm.com/cloud/learn/relational-databases](https://www.ibm.com/cloud/learn/relational-databases)
+[https://aws.amazon.com/relational-database/](https://aws.amazon.com/relational-database/)
+[https://medium.com/xplenty-blog/the-sql-vs-nosql-difference-mysql-vs-mongodb-32c9980e67b2](https://medium.com/xplenty-blog/the-sql-vs-nosql-difference-mysql-vs-mongodb-32c9980e67b2)
